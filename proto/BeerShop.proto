@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "./proto";
+
+service BeerShop {
+  rpc GetMenu (MenuRequest) returns (stream Menu);
+  rpc PlaceOrder(Order) returns (Receipt);
+  rpc GetOrderStatus(Receipt) returns (OrderStatus);
+  rpc Create(Item) returns (Item);
+}
+
+message MenuRequest{}
+
+message Item {
+  int32 id = 1;
+  string name = 2;
+  string cost = 3;
+}
+
+message Menu {
+    repeated Item items = 1;
+}
+
+message Order {
+    repeated Item items = 1;
+    string name = 2;
+}
+
+message Receipt {
+  string id = 1;
+  repeated Item itesm = 2;
+}
+
+message OrderStatus {
+  string orderId = 1;
+  string status = 2;
+}
